@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/malambra/pycomicscrape/blob/main/pyComicScrape.png" />
+  <img src="https://github.com/malambra/pycomicscrape/blob/main/pycomicscrape.png" />
 </p>
 
 **pyComicScrape** permite obtener datos de **ediciones** o **comics** de Whakoom.
