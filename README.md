@@ -52,3 +52,9 @@ Para  la persistencia de datos, **pyComicScrape** requiere de una base de datos 
     - collection: comiteca
     - port 27018
     - user:password: `root:example`
+
+## Next steps.
+- Añadir enriquecimiento con:
+    - genero
+    - subgenero
+    - referidos
