@@ -19,12 +19,12 @@ Permite obtener datos de 'ediciones' o 'comics' de Whakoom.
 
     Primer argumento 'ediciones' o 'comics':
         Indica si iteramos sobre las urls de ediciones o comics.
-            - Comics usa id alfanumericos por lo que no permite iterar sobre ellos y obtiene un unico elemento.
-            - Ediciones usa id numericos por lo que permite recibir uno o dos argumentos, dependiendo de si obtenemos un unico elemento o todos los elementos de un intervalo.
+            - Comics usa id alfanuméricos por lo que no permite iterar sobre ellos y obtiene un único elemento.
+            - Ediciones usa id numéricos por lo que permite recibir uno o dos argumentos, dependiendo de si obtenemos un único elemento o todos los elementos de un intervalo.
 
     Luego, debes proporcionar uno o dos id.
     - Para ediciones los id deben ser enteros
-    - Para comcis los id son alfanumericos.
+    - Para comcis los id son alfanuméricos.
 
     Debug: Si incluimos '--debug' se habilitar el modo de depuración y no se realizan inserciones en bbdd
 ```
@@ -39,11 +39,11 @@ Para  la persistencia de datos, **pyComicScrape** requiere de una base de datos 
     docker-compose up -d
     ```
 
-- **initializeDB.py** proporciona un script para inicializar nuestra base de datos y la coleccion indicada.
+- **initializeDB.py** proporciona un script para inicializar nuestra base de datos y la colección indicada.
     ```bash
     python initializeDB.py comics comiteca
     ```
-- **scraper.py** viene preconfigurado para insertar datos en la base de datos local con los parametros anteriomente comentados.
+- **scraper.py** viene preconfigurado para insertar datos en la base de datos local con los parámetros anteriormente comentados.
     ```bash
     def connect_to_db():
         client = pymongo.MongoClient("mongodb://root:example@localhost:27018/")
@@ -58,6 +58,6 @@ Para  la persistencia de datos, **pyComicScrape** requiere de una base de datos 
 
 ## Next steps.
 - Añadir enriquecimiento con:
-    - genero
-    - subgenero
+    - género
+    - subgénero
     - referidos
