@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://github.com/malambra/pyComicScrape/blob/main/pyComicScrape.png" />
 </p>
-pyComicScrape** permite obtener datos de 'ediciones' o 'comics' de Whakoom.
+**pyComicScrape** permite obtener datos de 'ediciones' o 'comics' de Whakoom.
 
 ## Qué es pyComicScrape?
 
