@@ -9,7 +9,7 @@ Permite obtener datos de 'ediciones' o 'comics' de Whakoom.
 
 ```bash
     Uso:
-    - python main.py {ediciones,comics} start_id [end_id] [--debug]
+    - python main.py {ediciones,comics} start_id [end_id] [--debug] [--delay] 
 
     Ejemplos de uso:
     - python main.py ediciones 2216 2219 --debug
@@ -27,6 +27,7 @@ Permite obtener datos de 'ediciones' o 'comics' de Whakoom.
     - Para comcis los id son alfanuméricos.
 
     Debug: Si incluimos '--debug' se habilitar el modo de depuración y no se realizan inserciones en bbdd
+    Delay: Por defecto es 0, pero podemos establecer un delay forzado entre peticiones.
 ```
     
 ## Persistencia de datos
