@@ -35,6 +35,9 @@ Para  la persistencia de datos, **pyComicScrape** requiere de una base de datos 
 - **docker-compose.yml** proporciona una instancia de mongodb para realizar las pruebas de persistencia.
     - Levanta **mongo-express** en el puerto 8081 de localhost (user root1)
     - Levanta **mongo** en el puerto 27017 y lo expone en localhost 27018 (user root)
+    ```bash
+    docker-compose up -d
+    ```
 
 - **initializeDB.py** proporciona un script para inicializar nuestra base de datos y la coleccion indicada.
     ```bash
