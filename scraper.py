@@ -38,6 +38,8 @@ def scrape_page(soup, page_type, url):
     # Encontrar todos los elementos <a> dentro de <p> dentro de <div class="tags">
     if page_type == 'ediciones':
         raw_authors_dom = soup.select('div.tags p a')
+        if raw_authors_dom == []:
+            raw_authors_dom = soup.select('div.authors.info-item p a')
     else:
         # Encontrar todos los elementos <a> dentro de <p> dentro de <div class="authors info-item">
         raw_authors_dom = soup.select('div.authors.info-item p a')
@@ -70,8 +72,7 @@ def scrape_page(soup, page_type, url):
 
     # Obtener el idioma y editor
     spans = soup.select('p.lang-pub span')
-    language = (spans[0].text) if len(spans) > 0 else None
-    publisher = (spans[1].text) if len(spans) > 1 else None
+    lenguage = (spans[1].text) if len(spans) > 1 else None
 
     # Crear un diccionario con los datos obtenidos
     data = {
@@ -82,8 +83,7 @@ def scrape_page(soup, page_type, url):
         "Rating:" : rating,
         "Fecha de publicacion": publish_date,
         "Portada": cover,
-        "Editor": publisher,
-        "Lenguaje": language
+        "Idioma": lenguage
     }
 
     return data
