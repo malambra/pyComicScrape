@@ -17,6 +17,7 @@
     Ejemplos de uso:
     - python main.py ediciones 2216 2219 --debug
     - python main.py ediciones 2216 2219
+    - python main.py comics 202401 --date --debug
     - python main.py comics 6gppv --debug
     - python main.py comics 6gppv 
 
@@ -31,6 +32,7 @@
 
     Debug: Si incluimos '--debug' se habilitar el modo de depuración y no se realizan inserciones en bbdd
     Delay: Por defecto es 0, pero podemos establecer un delay forzado entre peticiones.
+    Date: Al usar el argumento date se usa start_id como fecha YYYYMM, para obtener los comics publicados ese mes invocando a /comics/ids
 ```
     
 ## Persistencia de datos
