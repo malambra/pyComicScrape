@@ -12,7 +12,7 @@ import requests
 python_bin = "python" if shutil.which("python") else "python3"
 
 def invoke_scraper(mode, id, debug, delay):
-    command = [python_bin, "scraper.py", mode, str(id)]
+    command = [python_bin, "./src/scraper.py", mode, str(id)]
     if debug:
         command.append("--debug")
     try:
