@@ -18,30 +18,32 @@ pip install -r requirements.txt
 
 ## Quick start
 
+### Uso:
 ```bash
-    Uso:
-    - python main.py {ediciones,comics} start_id [end_id] [--debug] [--delay] [--date]
+- python main.py {ediciones,comics} start_id [end_id] [--debug] [--delay] [--date]
+```
 
-    Ejemplos de uso:
-    - python main.py ediciones 2216 2219 --debug --delay 2 # Llamadas a ediciones del rango 2216...2219 con 2 segundos de delay
-    - python main.py comics 202401 --date --debug # Llamadas a comics de todos los comics publicados en Enero 2024
-    - python main.py comics 6gppv --debug # Llamada unica a comics 6gppv impresion por pantalla
-    - python main.py ediciones 2216 # Llamada unica a ediciones 2216 con inserción en bbdd
-
-    Primer argumento 'ediciones' o 'comics':
-        Indica si iteramos sobre las urls de ediciones o comics.
-            - Comics usa id alfanuméricos por lo que no permite iterar sobre ellos y obtiene un único elemento.
-            - Ediciones usa id numéricos por lo que permite recibir uno o dos argumentos, dependiendo de si obtenemos un único elemento o todos los elementos de un intervalo.
+### Ejemplos de uso:
+```bash
+python main.py ediciones 2216 2219 --debug --delay 2 # Llamadas a ediciones del rango 2216...2219 con 2 segundos de delay
+python main.py ediciones 2216 # Llamada unica a ediciones 2216 con inserción en bbdd
+python main.py comics 202401 --date --debug # Llamadas a comics de todos los comics publicados en Enero 2024
+python main.py comics 6gppv --debug # Llamada unica a comics 6gppv impresion por pantalla
+```
+### Argumentos
+- Mode: {ediciones,comics}
+    Indica si iteramos sobre las urls de ediciones o comics.
+        - Comics usa id alfanuméricos por lo que no permite iterar sobre ellos y obtiene un único elemento.
+        - Ediciones usa id numéricos por lo que permite recibir uno o dos argumentos, dependiendo de si obtenemos un único elemento o todos los elementos de un intervalo.
 
     Luego, debes proporcionar uno o dos id.
     - Para ediciones los id deben ser enteros
     - Para comcis los id son alfanuméricos.
 
-    --debug # Si incluimos '--debug' se habilitar el modo de depuración y no se realizan inserciones en bbdd
-    --delay # Por defecto es 0, pero podemos establecer un delay forzado entre peticiones.
-    --date # Al usar el argumento date se usa start_id como fecha YYYYMM, para obtener los comics publicados ese mes invocando a /comics/ids
-```
-    
+- --debug # Si incluimos '--debug' se habilitar el modo de depuración y no se realizan inserciones en bbdd
+- --delay # Por defecto es 0, pero podemos establecer un delay forzado entre peticiones.
+- --date # Al usar el argumento date se usa start_id como fecha YYYYMM, para obtener los comics publicados ese mes invocando a /comics/ids
+
 ## Persistencia de datos
 Para  la persistencia de datos, **pyComicScrape** requiere de una base de datos sobre la que realizar los insert de los objetos generados de nuestra petición.
 
