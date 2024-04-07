@@ -8,6 +8,14 @@
 
 **pyComicScrape** permite obtener desde la web de whakom, en formato json, los comics indicados en un rango dado. Estos elementos pueden ser insertados en una base de datos mongodb, para su posterior uso o tratamiento.
 
+## Dependencies
+
+Las librerias requeridas por **pyComicScrape** estan listadas en **requirements.txt** y deberán ser instaladas previamente
+
+```bash
+pip install -r requirements.txt
+```
+
 ## Quick start
 
 ```bash
