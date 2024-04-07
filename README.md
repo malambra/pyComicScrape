@@ -20,14 +20,13 @@ pip install -r requirements.txt
 
 ```bash
     Uso:
-    - python main.py {ediciones,comics} start_id [end_id] [--debug] [--delay] 
+    - python main.py {ediciones,comics} start_id [end_id] [--debug] [--delay] [--date]
 
     Ejemplos de uso:
-    - python main.py ediciones 2216 2219 --debug
-    - python main.py ediciones 2216 2219
-    - python main.py comics 202401 --date --debug
-    - python main.py comics 6gppv --debug
-    - python main.py comics 6gppv 
+    - python main.py ediciones 2216 2219 --debug --delay 2 # Llamadas a ediciones del rango 2216...2219 con 2 segundos de delay
+    - python main.py comics 202401 --date --debug # Llamadas a comics de todos los comics publicados en Enero 2024
+    - python main.py comics 6gppv --debug # Llamada unica a comics 6gppv impresion por pantalla
+    - python main.py ediciones 2216 # Llamada unica a ediciones 2216 con inserción en bbdd
 
     Primer argumento 'ediciones' o 'comics':
         Indica si iteramos sobre las urls de ediciones o comics.
@@ -38,9 +37,9 @@ pip install -r requirements.txt
     - Para ediciones los id deben ser enteros
     - Para comcis los id son alfanuméricos.
 
-    Debug: Si incluimos '--debug' se habilitar el modo de depuración y no se realizan inserciones en bbdd
-    Delay: Por defecto es 0, pero podemos establecer un delay forzado entre peticiones.
-    Date: Al usar el argumento date se usa start_id como fecha YYYYMM, para obtener los comics publicados ese mes invocando a /comics/ids
+    --debug # Si incluimos '--debug' se habilitar el modo de depuración y no se realizan inserciones en bbdd
+    --delay # Por defecto es 0, pero podemos establecer un delay forzado entre peticiones.
+    --date # Al usar el argumento date se usa start_id como fecha YYYYMM, para obtener los comics publicados ese mes invocando a /comics/ids
 ```
     
 ## Persistencia de datos
