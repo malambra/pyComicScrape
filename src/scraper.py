@@ -51,14 +51,12 @@ def scrape_page(soup, page_type, url):
     cover = soup.find("meta", property="og:image")["content"]
 
     # Obtener la fecha de publicación
-    if page_type == 'ediciones':
-        published_date_p = soup.select_one('div.info > div > div > p')
-        if published_date_p:
-            publish_date = published_date_p.get('content')
-        else:
-            publish_date = None
-    else:
-        publish_date = None
+    try:
+        published_date_p = soup.select_one('p[itemprop="datePublished"]')['content']
+    except:
+        published_date_p = None
+    publish_date = published_date_p
+
 
     # Obtener la calificación (rating)
     rating_element = soup.select_one('span.stars span.stars-bg span.stars-value')

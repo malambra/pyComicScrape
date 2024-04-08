@@ -76,7 +76,7 @@ Para  la persistencia de datos, **pyComicScrape** requiere de una base de datos 
     - género
     - subgénero
     - referidos
-- Revisar scrape de fechas de publicación
+- Revisar scrape de fechas de publicación --> done
 - Revisar scrape de Autores --> done
 - Revisar scrape de Idioma --> done
 - Permitir obtención de datos por fechas --> done
