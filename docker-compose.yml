@@ -11,6 +11,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - 27018:27017
+    volumes:
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
 
   mongo-express:
     image: mongo-express
@@ -23,4 +26,8 @@ services:
       ME_CONFIG_BASICAUTH_USERNAME: root1
       ME_CONFIG_BASICAUTH_PASSWORD: example1
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+
+volumes:
+  mongo-data:
+  mongo-config:
 
