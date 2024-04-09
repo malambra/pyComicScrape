@@ -71,6 +71,33 @@ Para  la persistencia de datos, **pyComicScrape** requiere de una base de datos 
     - port 27018
     - user:password: `root:example`
 
+## Tests
+
+**initializeDB**
+```bash
+python3 -m unittest ./test/test_initializeDB.py      
+                                            1 ↵
+Collection 'test_collection' created in the database 'test_db'
+.The collection 'test_collection' already exists in the database 'test_db'
+.
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK
+```
+
+**scraper.py**
+```bash
+python3 -m unittest ./test/test_scraper.py
+.Error al obtener la página: 404
+.Los datos se han insertado correctamente en MongoDB.
+...
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+OK
+```
+
 ## Next steps.
 - Añadir enriquecimiento con:
     - género
