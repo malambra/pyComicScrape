@@ -9,12 +9,14 @@ import requests
 
 
 # Comprueba si python está disponible, si no, usa python3
-python_bin = "python" if shutil.which("python") else "python3"
+python_bin = "python" if shutil.which("python") else "python3.11"
 
-def invoke_scraper(mode, id, debug, delay):
+def invoke_scraper(mode, id, debug, enrich, delay):
     command = [python_bin, "./src/scraper.py", mode, str(id)]
     if debug:
         command.append("--debug")
+    if enrich:
+        command.append("--enrich")
     try:
         subprocess.run(command, check=True)
     except subprocess.CalledProcessError as e:
@@ -43,7 +45,7 @@ def date(mode, start_id, debug, delay):
     for i in comic_ids:
         invoke_scraper(mode, i, debug, delay)
     
-def main(mode, start_id, end_id, debug, delay):
+def main(mode, start_id, end_id, debug, enrich, delay):
     if mode == 'ediciones':
         try:
             start_id = int(start_id)
@@ -52,9 +54,9 @@ def main(mode, start_id, end_id, debug, delay):
             print("start_id y end_id deben ser números enteros.")
             return
         for id in range(start_id, end_id + 1):
-            invoke_scraper(mode, id, debug, delay)
+            invoke_scraper(mode, id, debug, enrich, delay)
     elif mode == 'comics':
-        invoke_scraper(mode, start_id, debug, delay)
+        invoke_scraper(mode, start_id, debug, enrich, delay)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Scrape a Whakoom page.')
@@ -62,12 +64,13 @@ if __name__ == "__main__":
     parser.add_argument('start_id', help='The ID of the page to start scraping.')
     parser.add_argument('end_id', nargs='?', default=None, help='The ID of the page to end scraping. If not provided, it will be the same as start_id.')
     parser.add_argument('--debug', action='store_true', help='Enable debug mode.')
+    parser.add_argument('--enrich', action='store_true', help='Enrich the data with genre and subgenre information.')
     parser.add_argument('--delay', nargs='?', default=0, type=int, help='Time to wait between requests.')
     parser.add_argument('--date', action='store_true', help='Explore YYYYMM indicated in start_id, to get comics.')
     args = parser.parse_args()
     if args.date:
         # If date is provided, we will scrape comics
         args.mode = 'comics'
-        date(args.mode, args.start_id, args.debug, args.delay)
+        date(args.mode, args.start_id, args.debug, args.enrich, args.delay)
     else:
-        main(args.mode, args.start_id, args.end_id, args.debug, args.delay)
+        main(args.mode, args.start_id, args.end_id, args.debug, args.enrich, args.delay)

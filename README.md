@@ -44,6 +44,32 @@ python main.py comics 6gppv --debug # Llamada unica a comics 6gppv impresion por
 - --delay # Por defecto es 0, pero podemos establecer un delay forzado entre peticiones.
 - --date # Al usar el argumento date se usa start_id como fecha YYYYMM, para obtener los comics publicados ese mes invocando a /comics/ids
 
+### Example
+Para la categorización se contemplan los siguientes generos y subgeneros.
+#### Generos
+- Americano
+- Manga
+- Europeo
+- Comic de Autor
+
+#### Subgeneros
+- SuperHeroes
+- Terror
+- Noir
+- Ciencia Ficcion
+- Apocaliptico
+- Humor
+- Drama
+- Humor
+- Drama
+- Indy
+- Fantasia
+- Historico
+- Aventuras
+- Slice of life
+- Romance
+- Suspense
+
 ## Persistencia de datos
 Para  la persistencia de datos, **pyComicScrape** requiere de una base de datos sobre la que realizar los insert de los objetos generados de nuestra petición.
 

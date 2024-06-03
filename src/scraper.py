@@ -1,8 +1,12 @@
+import openai
 import requests
 import argparse
 import json
 import pymongo
 from bs4 import BeautifulSoup
+
+# Configura la API de OpenAI
+openai.api_key = 'sk-XXXXXXXXXXXX'
 
 def connect_to_db():
     client = pymongo.MongoClient("mongodb://root:example@localhost:27018/")
@@ -15,6 +19,7 @@ def parse_args():
     parser.add_argument('page_type', choices=['ediciones', 'comics'], help='The type of page to scrape.')
     parser.add_argument('page_id', help='The ID of the page to scrape.')
     parser.add_argument('--debug', action='store_true', help='Enable debug mode.')
+    parser.add_argument('--enrich', action='store_true', help='Enrich the data with genre and subgenre information.')
     return parser.parse_args()
 
 def fetch_page(url):
@@ -24,6 +29,42 @@ def fetch_page(url):
     else:
         print("Error al obtener la página:", response.status_code)
         return None
+
+def obtener_genero_subgenero(descripcion):
+    # Realiza una consulta a ChatGPT para obtener el género y subgénero
+    prompt = f"Determina el género y subgénero del siguiente cómic basado en su descripción:\n\n{descripcion}\n\nLos posibles géneros son: 'Americano', 'Manga', 'Europeo', 'Comic de autor'.\nLos posibles subgéneros son: 'Apocaliptico', 'Noir', 'Ciencia Ficcion', 'Drama'.\nProporciona el resultado en el formato JSON con los campos 'genero' y 'subgenero'."
+
+    response = openai.Completion.create(
+        engine="text-davinci-004",
+        prompt=prompt,
+        max_tokens=100,
+        n=1,
+        stop=None,
+        temperature=0.5
+    )
+
+    # Extrae el texto de la respuesta y convierte a JSON
+    resultado = response.choices[0].text.strip()
+    genero_subgenero = json.loads(resultado)
+    
+    return genero_subgenero
+
+def actualizar_json_con_genero_subgenero(data):
+    # Convierte el JSON de entrada en un diccionario
+    #datos = json.loads(data)
+    
+    # Obtiene el género y subgénero basado en la descripción
+    descripcion = data.get("Descripcion", "")
+    genero_subgenero = obtener_genero_subgenero(descripcion)
+    
+    # Actualiza el diccionario con los nuevos campos
+    #datos.update(genero_subgenero)
+    data.update(genero_subgenero)
+    
+    # Convierte el diccionario actualizado de vuelta a JSON
+    #datos_actualizados = json.dumps(datos, ensure_ascii=False, indent=4)
+    datos_actualizados = json.dumps(data, ensure_ascii=False, indent=4)
+    return datos_actualizados
 
 def scrape_page(soup, page_type, url):
     # Obtener el título de la página
@@ -101,6 +142,9 @@ def main():
     soup = fetch_page(url)
     if soup is not None:
         data = scrape_page(soup, args.page_type, url)
+        if args.enrich:
+            #data = actualizar_json_con_genero_subgenero(json.dumps(data))
+            data = actualizar_json_con_genero_subgenero(data)
         print(json.dumps(data, indent=4))
         collection = connect_to_db()
         insert_data(collection, data, args.debug)
