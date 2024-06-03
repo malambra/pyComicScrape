@@ -10,10 +10,17 @@
 
 ## Dependencies
 
-Las librerias requeridas por **pyComicScrape** estan listadas en **requirements.txt** y deberán ser instaladas previamente
+- Las librerias requeridas por **pyComicScrape** estan listadas en **requirements.txt** y deberán ser instaladas previamente
 
 ```bash
 pip install -r requirements.txt
+```
+
+- Para poder hacer uso de la función de enriquecimiento **--enrich** es necesario crear un fichero **config.json** como se indica en **example_config.json** en el que indicaremos nuestra api_key para poder usar la libreria de openia.
+```json
+{
+    "openai_api_key": "MY_API_KEY"
+}
 ```
 
 ## Quick start
