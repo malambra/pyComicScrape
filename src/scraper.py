@@ -6,7 +6,12 @@ import pymongo
 from bs4 import BeautifulSoup
 
 # Configura la API de OpenAI
-openai.api_key = 'sk-XXXXXXXXXXXX'
+# Lee la configuración desde config.json
+with open('config.json') as f:
+    config = json.load(f)
+
+# Configura la API de OpenAI
+openai.api_key = config['openai_api_key']
 
 def connect_to_db():
     client = pymongo.MongoClient("mongodb://root:example@localhost:27018/")
@@ -32,19 +37,21 @@ def fetch_page(url):
 
 def obtener_genero_subgenero(descripcion):
     # Realiza una consulta a ChatGPT para obtener el género y subgénero
-    prompt = f"Determina el género y subgénero del siguiente cómic basado en su descripción:\n\n{descripcion}\n\nLos posibles géneros son: 'Americano', 'Manga', 'Europeo', 'Comic de autor'.\nLos posibles subgéneros son: 'Apocaliptico', 'Noir', 'Ciencia Ficcion', 'Drama'.\nProporciona el resultado en el formato JSON con los campos 'genero' y 'subgenero'."
+    messages = [
+        # Definicion del comportamiento del asistente
+        {"role": "system", "content": "You are a helpful assistant."},
+        # Pregunta al asistente
+        {"role": "user", "content": f"Determina el género y subgénero del siguiente cómic basado en su descripción:\n\n{descripcion}\n\nLos posibles géneros son: 'Americano', 'Manga', 'Europeo', 'Comic de autor'.\nLos posibles subgéneros son: 'Apocaliptico', 'Noir', 'Ciencia Ficcion', 'Drama'.\nProporciona el resultado en el formato JSON con los campos 'genero' y 'subgenero'."}
+    ]
 
-    response = openai.Completion.create(
-        engine="text-davinci-004",
-        prompt=prompt,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo-0125",
+        messages=messages,
         max_tokens=100,
-        n=1,
-        stop=None,
-        temperature=0.5
     )
 
     # Extrae el texto de la respuesta y convierte a JSON
-    resultado = response.choices[0].text.strip()
+    resultado = response['choices'][0]['message']['content'].strip()
     genero_subgenero = json.loads(resultado)
     
     return genero_subgenero
